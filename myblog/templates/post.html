@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% load staticfiles %} {% block content %}
+<div class="row" style="text-align:center;width:100%;" >
+      <div >
+          <h3>{{post.title}}</h3>
+          <h6>by {{post.author}}</h6>
+        <div class="card-panel teal" style="width:99%;margin-left:0.5%">
+          <span class="white-text">{{post.content}}</span>
+        </div>
+      </div>
+    </div>
+<ul class="collapsible" data-collapsible="accordion">
+    {% for comment in comments %}
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{comment.author}}</div>
+        <div class="collapsible-body">
+            <p>{{comment.contenido}}</p><p>{{comment.date}}</p>
+        </div>
+    </li>
+    {% empty %}
+    <p style="text-align:center">Add the first comment</p>
+    {% endfor %}
+<form method="post" action="">
+    {% csrf_token %}
+    <h5 style=m argin-left:20px;>New Comment</h2>
+      <div class="row">
+    <div class="col s12">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">label outline</i>
+          <input id="icon_prefix" type="text" name='author' class="validate">
+            <label for="icon_prefix">Author</label>
+        </div>
+    <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+          <textarea id="textarea1" name='content' class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+  </div>
+</form>
+        <input type="submit" style="margin-top:270px;padding-top: 7px;" class="waves-effect waves-light btn">
+
+{% endblock %}

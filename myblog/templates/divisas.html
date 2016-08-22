@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<!--CAMBIAR COMBOBOX POR DROPDOWN DE MATERIALIZE -->
+<h3 style="text-align:center;">{{post.title}}</h3>
+			<input type="text" id="valor">
+	<br>
+    <ul id=list>
+			<li id="word">De:</li>
+            <a class='dropdown-button btn' data-activates='dropdown1'>Seleccione</a>
+			<li><select id='dropdown1' class='dropdown-content' onchange="mod()" style="width:25%;">
+				<option value=0>Seleccione</option>
+				<option value=0.067024>Peso Argentino</option>
+				<option value=1>Dolar</option>
+				<option value=0.276886>Reales</option>
+				<option value=0.001489>Chilenos</option>
+				<option value=0.030979>Uruguayos</option>
+				<option value=1.12845>Euros</option></select></li>
+			<li id="aWord">a</li>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown2'>Seleccione</a>
+			<li><select id='dropdown2' class='dropdown-content' onchange="cmbx()" style="width:25%;">
+				<option value=0>Seleccione</option>
+				<option value=0.067024>Peso Argentino</option>
+				<option value=1>Dolar</option>
+				<option value=0.276886>Reales</option>
+				<option value=0.001489>Chilenos</option>
+				<option value=0.030979>Uruguayos</option>
+				<option value=1.12845>Euros</option></select></li>
+
+		</ul>
+	<script>
+		$('select').material_select();
+		var val1 = 0;
+		var x = 0;
+		function mod() {
+			console.log("aca estoy");
+			val1 = document.getElementById("dropdown1").value;
+			x = document.getElementById("valor").value;
+}
+		function cmbx() {
+			var dam = document.getElementById("dropdown2").value;
+			var res = eval(x + "*" + val1)/dam;
+			document.getElementById("valor").value= res ;
+		}
+	</script>
+	<style>
+	ul li{
+		list-style-type: none;
+		display: inline;
+	}
+
+	#valor {
+        display: block;
+        margin: auto;
+        width:30%;
+	}
+	.select-wrapper{
+		align-content: center;
+		width: 25%;
+	}
+	#list {
+        display: block;
+        margin: auto;
+        width: 40%;
+	}
+	#word{
+        margin-left: 70px;
+	}
+	#aWord{
+		padding: 15px;
+	}
+	#valor{
+		margin-left: 470px;
+	}
+
+	</style>
+<ul class="collapsible" data-collapsible="accordion">
+    {% for comment in comments %}
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{comment.author}}</div>
+        <div class="collapsible-body">
+            <p>{{comment.contenido}}</p><p>{{comment.date}}</p>
+        </div>
+    </li>
+    {% empty %}
+    <p>Add the first comment</p>
+    {% endfor %}
+<form method="post" action="">
+    {% csrf_token %}
+    <h5 style=m argin-left:20px;>New Comment</h2>
+      <div class="row">
+    <div class="col s12">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">label outline</i>
+          <input id="icon_prefix" type="text" name='author' class="validate">
+            <label for="icon_prefix">Author</label>
+        </div>
+    <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+          <textarea id="textarea1" name='content' class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+  </div>
+</form>
+        <input type="submit" style="margin-top:270px;padding-top: 7px;" class="waves-effect waves-light btn">
+
+{% endblock %}

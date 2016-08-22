@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<h3 style="text-align:center;">{{post.title}}</h3>
+<div id=divCal>
+	<p id="display"></p>
+	<br>
+	<br>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(1)>1</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(2)>2</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(3)>3</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num("*")>*</a>
+	<br>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(4)>4</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(5)>5</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(6)>6</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num("/")>/</a>
+	<br>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(7)>7</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(8)>8</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(9)>9</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=borrar()>C</a>
+	<br>
+	<a class="waves-effect waves-teal btn-flat" onclick=num("+")>+</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num(0)>0</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=num("-")>-</a>
+	<a class="waves-effect waves-teal btn-flat" onclick=igual()>=</a>
+	</div>
+<br>
+	<script>
+			function num(val){
+				var n1 = val;
+				var n2 = document.getElementById("display").innerHTML;
+				var r = n2 + n1;
+				document.getElementById("display").innerHTML = r;
+			}
+
+			function igual(r){
+				var r = document.getElementById("display").innerHTML;
+				var e = eval(r);
+				document.getElementById("display").innerHTML = e;
+			}
+			function borrar(){
+				console.log();
+				document.getElementById("display").innerHTML = "";
+			}
+			function change(){
+				var sheet = document.getElementById("combobox").value;
+				document.getElementById('page').setAttribute('href', sheet);
+			}
+		</script>
+	<style>
+#divCal {
+    text-align:center;
+}
+
+#display {
+	font-size: 20px;
+	height: 20px;
+	padding-left: 5px;
+}
+	</style>
+<ul class="collapsible" data-collapsible="accordion">
+    {% for comment in comments %}
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{comment.author}}</div>
+        <div class="collapsible-body">
+            <p>{{comment.contenido}}</p><p>{{comment.date}}</p>
+        </div>
+    </li>
+    {% empty %}
+    <p style="text-align:center">Add the first comment</p>
+    {% endfor %}
+<form method="post" action="">
+    {% csrf_token %}
+    <h5 style=m argin-left:20px;>New Comment</h2>
+      <div class="row">
+    <div class="col s12">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">label outline</i>
+          <input id="icon_prefix" type="text" name='author' class="validate">
+            <label for="icon_prefix">Author</label>
+        </div>
+    <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+          <textarea id="textarea1" name='content' class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+  </div>
+</form>
+        <input type="submit" style="margin-top:270px;padding-top: 7px;" class="waves-effect waves-light btn">
+
+{% endblock %}

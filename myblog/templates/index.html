@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<div id="test1" class="col s12">
+  <div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="{% static 'images/hword.jpg'%}"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>Welcome to my Firts Django App!</h3>
+          <h5 class="light grey-text text-lighten-3"></h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static 'images/write.png'%}"> <!-- random image -->
+        <div class="caption left-align">
+          <h3>Python Programming</h3>
+          <h5 class="light grey-text text-lighten-3"></h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static 'images/apple.jpg'%}"> <!-- random image -->
+        <div class="caption right-align">
+          <h3>ITS Villada</h3>
+          <h5 class="light grey-text text-lighten-3">2016</h5>
+        </div>
+      </li>
+      <li>
+        <img src="{% static 'images/balls.jpg'%}"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>Be Happy</h3>
+          <h5 class="light grey-text text-lighten-3"></h5>
+        </div>
+      </li>
+    </ul>
+  </div>
+<div class="allCards" style="align:center;">
+</div>
+  <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{% static 'images/images.png' %}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Calculator<i class="material-icons right">more_vert</i></span>
+        <p><a href="{% url 'index:calc' %}">Open</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Calculator<i class="material-icons right">close</i></span>
+      <p>Calculator.</p>
+    </div>
+  </div>
+<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{% static 'images/divisas.png' %}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Divisas<i class="material-icons right">more_vert</i></span>
+        <p><a href="{% url 'index:divisas' %}">Open</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Conversor de divisas<i class="material-icons right">close</i></span>
+      <p>Conversor de divisas.</p>
+    </div>
+  </div>
+<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{% static 'images/camera.png' %}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Camera<i class="material-icons right">more_vert</i></span>
+        <p><a href="{% url 'index:gallery' %}">Open</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Galeria de imagenes<i class="material-icons right">close</i></span>
+      <p>Disfrute de las imagenes.</p>
+    </div>
+  </div>
+<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{% static 'images/cron.png' %}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Cronometro<i class="material-icons right">more_vert</i></span>
+        <p><a href="{% url 'index:cron' %}">Open</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Cronometro<i class="material-icons right">close</i></span>
+      <p>Play/Pause/STOP</p>
+    </div>
+  </div>
+<div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="{% static 'images/form.png' %}">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">Formulario<i class="material-icons right">more_vert</i></span>
+        <p><a href="{% url 'index:formulario' %}">Open</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Formulario<i class="material-icons right">close</i></span>
+      <p>Complete el formulario.</p>
+    </div>
+  </div>
+</div>
+<style>
+    .card{
+        display: inline-block;
+        height: auto;
+        width: 225px;
+        margin-left: 35px;
+    }
+</style>
+
+{% endblock %}
+

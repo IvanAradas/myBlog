@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% load staticfiles %} {% block content %}
+<h3 style="text-align:center;">{{post.title}}</h3>
+<div class=content style="text-align:center;">
+<h1 id="chronotime">0:00:00:00</h1>
+    <br><br><br>
+<form name="chronoForm" class="aForm">
+    <a class="waves-effect waves-light btn" name="startstop" id=startstop  onClick="chronoStart()">PLAY</a>
+    <a class="waves-effect waves-light btn" name="reset" value="RESET" id=reset onClick="chronoStop()">RESET</a>
+</form>
+</div>
+<br>
+<ul class="collapsible" data-collapsible="accordion">
+    {% for comment in comments %}
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{comment.author}}</div>
+        <div class="collapsible-body">
+            <p>{{comment.contenido}}</p>
+            <p>{{comment.date}}</p>
+        </div>
+    </li>
+    {% empty %}
+    <p style="text-align:center">Add the first comment</p>
+    {% endfor %}
+    <form method="post" action="">
+        {% csrf_token %}
+        <h5 style=m argin-left:20px;>New Comment</h2>
+      <div class="row">
+    <div class="col s12">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">label outline</i>
+          <input id="icon_prefix" type="text" name='author' class="validate">
+            <label for="icon_prefix">Author</label>
+        </div>
+    <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+          <textarea id="textarea1" name='content' class="materialize-textarea"></textarea>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+  </div>
+</form>
+        <input type="submit" style="margin-top:270px;padding-top: 7px;" class="waves-effect waves-light btn">
+
+<script>
+    var startTime = 0
+    var start = 0
+    var end = 0
+    var diff = 0
+    var timerID = 0
+    function chrono(){
+        end = new Date()
+        diff = end - start
+        diff = new Date(diff)
+        var msec = diff.getMilliseconds()
+        var sec = diff.getSeconds()
+        var min = diff.getMinutes()
+        var hr = diff.getHours()-21
+        if (min < 10){
+            min = "0" + min
+        }
+        if (sec < 10){
+            sec = "0" + sec
+        }
+        if(msec < 10){
+            msec = "00" +msec
+        }
+        else if(msec < 100){
+            msec = "0" +msec
+        }
+        document.getElementById("chronotime").innerHTML = hr + ":" + min + ":" + sec + ":" + msec
+        timerID = setTimeout("chrono()", 10)
+    }
+
+    function chronoStart(){
+        document.getElementById('startstop').innerHTML = "PAUSE"
+        document.getElementById('startstop').onclick = chronoStop
+        document.getElementById('reset').onclick = chronoReset
+        start = new Date()
+        chrono()
+    }
+    function chronoContinue(){
+        document.getElementById('startstop').innerHTML = "PAUSE"
+        document.getElementById('startstop').onclick = chronoStop
+        document.getElementById('reset').onclick = chronoReset
+        start = new Date()-diff
+        start = new Date(start)
+        chrono()
+    }
+    function chronoReset(){
+        document.getElementById("chronotime").innerHTML = "0:00:00:000"
+        start = new Date()
+    }
+    function chronoStopReset(){
+        document.getElementById("chronotime").innerHTML = "0:00:00:000"
+        document.getElementById('startstop').onclick = chronoStart
+    }
+    function chronoStop(){
+        document.getElementById('startstop').innerHTML = "PLAY"
+        document.getElementById('startstop').onclick = chronoContinue
+        document.getElementById('reset').onclick = chronoStopReset
+        clearTimeout(timerID)
+    }
+</script>
+        <style>
+            .content{
+                padding-top: 40px;
+            }
+        </style>
+
+{% endblock %}
